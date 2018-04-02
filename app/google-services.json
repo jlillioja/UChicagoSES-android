@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "14951283882",
+    "firebase_url": "https://uchicago-ses.firebaseio.com",
+    "project_id": "uchicago-ses",
+    "storage_bucket": "uchicago-ses.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14951283882:android:84dd8ba76f35fadd",
+        "android_client_info": {
+          "package_name": "com.jlillioja.uchicagoses"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14951283882-f9bu26o20j0nmv95c90u088sbqfo9fte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsLS_DA5KJj5aKAsFgPIa3rdYLRvRYO2w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
