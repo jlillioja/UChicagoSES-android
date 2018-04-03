@@ -20,10 +20,12 @@ data class Event(val name: String?,
     }
 
     @IgnoredOnParcel
-    val formattedTime: String = {
-        val formatter = SimpleDateFormat.getDateTimeInstance()
-        formatter.timeZone = TimeZone.getTimeZone("America/Chicago")
-        formatter.format(time)
+    val formattedTime: String? = {
+        if (time != null) {
+            val formatter = SimpleDateFormat.getDateTimeInstance()
+            formatter.timeZone = TimeZone.getTimeZone("America/Chicago")
+            formatter.format(time)
+        } else null
     }()
 
     companion object {
