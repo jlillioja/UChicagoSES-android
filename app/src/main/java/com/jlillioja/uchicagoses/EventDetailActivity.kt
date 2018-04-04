@@ -22,15 +22,11 @@ class EventDetailActivity : AppCompatActivity() {
         name.text = event.name ?: ""
         time.text = event.formattedTime ?: ""
         location.text = event.location ?: ""
-//        location.autoLinkMask = 8
         Linkify.addLinks(location, Linkify.MAP_ADDRESSES)
-        location.visibility = View.VISIBLE
 
         if (event.slidesLink != null) {
             slidesLink.text = event.slidesLink.toString()
             Linkify.addLinks(slidesLink, Linkify.WEB_URLS)
-//            slidesLink.autoLinkMask = 1
-            slidesLink.visibility = View.VISIBLE
         }
     }
 
