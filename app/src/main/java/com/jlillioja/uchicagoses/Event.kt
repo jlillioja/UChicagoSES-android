@@ -13,7 +13,8 @@ import java.util.*
 data class Event(val name: String?,
                  val location: String?,
                  val time: Date?,
-                 val slidesLink: URL?): Parcelable {
+                 val description: String?,
+                 val link: URL?): Parcelable {
 
     override fun toString(): String {
         return "$name\n$formattedTime"
@@ -22,25 +23,28 @@ data class Event(val name: String?,
     @IgnoredOnParcel
     val formattedTime: String? = {
         if (time != null) {
-            val formatter = SimpleDateFormat.getDateTimeInstance()
+            val formatter = SimpleDateFormat("MMM dd, h:mm a")
             formatter.timeZone = TimeZone.getTimeZone("America/Chicago")
             formatter.format(time)
         } else null
     }()
 
     companion object {
-        fun fromData(data: DataSnapshot): Event {
-            val name = data.child("name").value as String
-            val location = data.child("location").value as String
-            val slidesLinkString = data.child("slidesLink").value as String
-            val timestamp = data.child("time").value as Long
+        fun fromData(data: DataSnapshot): Event? {
+            val name = data.child("name").value as? String
+            if (name.isNullOrBlank()) return null
+            val location = data.child("location").value as? String
+            val urlString = data.child("link").value as? String
+            val description = data.child("description").value as? String
+            val timestamp = data.child("time").value as? Long
+            val date = timestamp?.let { Date(it*1000) }
 
-            val slidesLink = try {
-                URL(slidesLinkString)
+            val link = try {
+                URL(urlString)
             } catch (error: Exception) {
                 null
             }
-            return Event(name, location, Date(timestamp * 1000), slidesLink)
+            return Event(name, location, date, description, link)
         }
     }
 }
