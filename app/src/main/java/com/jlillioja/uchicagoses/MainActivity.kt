@@ -3,44 +3,72 @@ package com.jlillioja.uchicagoses
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import com.google.firebase.database.*
+import android.support.v4.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
+import android.support.v4.view.GravityCompat
+import android.view.MenuItem
+import com.jlillioja.uchicagoses.model.Event
 
-class MainActivity : AppCompatActivity() {
 
-    private val events: MutableList<Event> = mutableListOf()
+class MainActivity : AppCompatActivity(), NavigationListener {
+
+    private val eventListFragment = EventListFragment.newInstance(this)
+    private val announcementsFragment = AnnouncementsFragment()
+    private val contactFragment = ContactFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val eventsAdapter = ArrayAdapter(this, R.layout.event_cell, events)
-        listView.adapter = eventsAdapter
-        listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            val intent = Intent(this@MainActivity, EventDetailActivity::class.java)
-            intent.putExtra("event", events[position])
-            startActivity(intent)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.title = "Socioeconomic Empowerment Summit"
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
+
+        drawer.setNavigationItemSelectedListener {
+            it.isChecked = true
+            drawer_layout.closeDrawers()
+            when (it.itemId) {
+                R.id.announcements -> {
+                    navigateTo(announcementsFragment)
+                    true
+                }
+                R.id.schedule -> {
+                    navigateTo(eventListFragment)
+                    true
+                }
+                R.id.contact -> {
+                    navigateTo(contactFragment)
+                    true
+                }
+                else -> false
+            }
         }
 
-        FirebaseDatabase.getInstance().reference.child("events").addChildEventListener(object: ChildEventListener {
-            override fun onChildAdded(data: DataSnapshot?, previous: String?) {
-                if (data != null) {
-                    val event = Event.fromData(data)
-                    if (event != null) {
-                        events.add(event)
-                        events.sortBy { it.time }
-                    }
-                    eventsAdapter.notifyDataSetChanged()
-                }
-            }
+        navigateTo(announcementsFragment)
+    }
 
-            override fun onChildChanged(p0: DataSnapshot?, p1: String?) {}
-            override fun onChildMoved(p0: DataSnapshot?, p1: String?) {}
-            override fun onChildRemoved(p0: DataSnapshot?) {}
-            override fun onCancelled(p0: DatabaseError?) {}
-        })
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                drawer_layout.openDrawer(GravityCompat.START)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun navigateToEventDetail(event: Event) {
+        val intent = Intent(this, EventDetailActivity::class.java)
+        intent.putExtra("event", event)
+        startActivity(intent)
+    }
+
+    private fun navigateTo(fragment: Fragment) {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(fragmentContainer.id, fragment)
+                .commit()
     }
 }

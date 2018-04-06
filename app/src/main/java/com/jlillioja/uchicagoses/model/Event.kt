@@ -1,6 +1,5 @@
-package com.jlillioja.uchicagoses
+package com.jlillioja.uchicagoses.model
 
-import android.os.Parcel
 import android.os.Parcelable
 import com.google.firebase.database.DataSnapshot
 import kotlinx.android.parcel.IgnoredOnParcel
@@ -14,7 +13,8 @@ data class Event(val name: String?,
                  val location: String?,
                  val time: Date?,
                  val description: String?,
-                 val link: URL?): Parcelable {
+                 val link: URL?,
+                 val key: String): Parcelable {
 
     override fun toString(): String {
         return "$name\n$formattedTime"
@@ -44,7 +44,7 @@ data class Event(val name: String?,
             } catch (error: Exception) {
                 null
             }
-            return Event(name, location, date, description, link)
+            return Event(name, location, date, description, link, data.key)
         }
     }
 }

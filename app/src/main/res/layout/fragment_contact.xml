@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:autoLink="web"
+            android:textSize="24sp"
+            android:text="http://uchicagoses.org/"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="For emergencies, please contact the University of Chicago Police Department. To reach:\n\nPress 123 from on-campus phones\nPress the red button on an emergency phone\nCall (773) 702 8181 from other phones."
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:autoLink="phone"
+            android:textSize="24sp"
+            android:text="UCPD: 1-773-702-8181"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="One of the resources the University makes available to students is the support and guidance of a University administrator who is on call and can be reached 24 hours a day, 7 days a week. This administrator is called the Dean-on-Call and can be reached by calling (773) 834-HELP (4357) or 4-HELP (4357) from a campus phone."/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:autoLink="phone"
+            android:textSize="24sp"
+            android:text="Dean On Call: 1-773-834-4357"/>
+        
+    </LinearLayout>
+
+</ScrollView>
